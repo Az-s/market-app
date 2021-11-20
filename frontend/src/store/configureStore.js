@@ -8,9 +8,9 @@ import axiosApi from "../axiosApi";
 
 
 const rootReducer = combineReducers({
-  'products': productsReducer,
-  'categories': categoriesReducer,
-  'users': usersReducer,
+  products: productsReducer,
+  categories: categoriesReducer,
+  users: usersReducer,
 });
 
 const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;

@@ -3,6 +3,7 @@ import Avatar from '@mui/material/Avatar';
 import Button from '@mui/material/Button';
 import CssBaseline from '@mui/material/CssBaseline';
 import TextField from '@mui/material/TextField';
+import Alert from '@mui/material/Alert';
 import { Link } from "react-router-dom";
 import Paper from '@mui/material/Paper';
 import Box from '@mui/material/Box';
@@ -11,7 +12,7 @@ import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import Typography from '@mui/material/Typography';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import { useDispatch, useSelector } from "react-redux";
-// import { SignInUser } from '../../store/actions/usersActions';
+import { loginUser } from '../../store/actions/usersActions';
 
 const Copyright = (props) => {
     return (
@@ -29,8 +30,8 @@ const Copyright = (props) => {
 const theme = createTheme();
 
 const Login = () => {
-    // const dispatch = useDispatch();
-    // const error = useSelector(state => state.users.loginError);
+    const dispatch = useDispatch();
+    const error = useSelector(state => state.users.loginError);
 
     const [user, setUser] = useState({
         username: '',
@@ -46,7 +47,7 @@ const Login = () => {
 
     const handleSubmit = (event) => {
         event.preventDefault();
-        // dispatch(SignInUser({ ...user }));
+        dispatch(loginUser({ ...user }));
     };
 
     return (
@@ -83,6 +84,12 @@ const Login = () => {
                         <Typography component="h1" variant="h5">
                             Sign in
                         </Typography>
+                        {
+                            error &&
+                            <Alert severity="error" sx={{ width: '100%' }}>
+                                {error.message || error.global}
+                            </Alert>
+                        }
                         <Box component="form" noValidate onSubmit={handleSubmit} sx={{ mt: 1 }}>
                             <TextField
                                 margin="normal"
@@ -93,6 +100,7 @@ const Login = () => {
                                 name="username"
                                 autoComplete="new-username"
                                 autoFocus
+                                value={user.username}
                                 onChange={inputChangeHandler}
                             />
                             <TextField
@@ -103,6 +111,7 @@ const Login = () => {
                                 label="Password"
                                 type="password"
                                 autoComplete="new-password"
+                                value={user.password}
                                 onChange={inputChangeHandler}
                             />
                             <Button

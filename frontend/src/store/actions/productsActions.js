@@ -1,4 +1,3 @@
-import axios from "axios";
 // import {NotificationManager} from "react-notifications";
 import {toast} from "react-toastify";
 import WarningIcon from '@mui/icons-material//Warning';
@@ -57,7 +56,7 @@ export const fetchProduct = id => {
   return async dispatch => {
     try {
       dispatch(fetchProductRequest());
-      const response = await axios.get('http://localhost:8000/products/' + id);
+      const response = await axiosApi.get('/products/' + id);
       dispatch(fetchProductSuccess(response.data));
     } catch (e) {
       dispatch(fetchProductFailure());
@@ -69,7 +68,7 @@ export const createProduct = productData => {
   return async dispatch => {
     try {
       dispatch(createProductRequest());
-      await axios.post('http://localhost:8000/products', productData);
+      await axiosApi.post('/products', productData);
       dispatch(createProductSuccess());
       toast.success('Product created');
     } catch (e) {
@@ -78,3 +77,18 @@ export const createProduct = productData => {
     }
   };
 };
+
+export const deleteProduct = (id) => {
+  return async dispatch => {
+    try {
+      dispatch(fetchProductRequest());
+      await axiosApi.delete('/products/' + id);
+      dispatch(fetchProductSuccess());
+      toast.success('Product deleted');
+    } catch (e) {
+      dispatch(fetchProductFailure());
+      throw e;
+    }
+  };
+};
+

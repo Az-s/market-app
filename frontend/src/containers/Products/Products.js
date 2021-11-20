@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import Box from '@mui/material/Box';
 import Drawer from '@mui/material/Drawer';
 import CssBaseline from '@mui/material/CssBaseline';
@@ -7,12 +7,23 @@ import List from '@mui/material/List';
 import Typography from '@mui/material/Typography';
 import ListItem from '@mui/material/ListItem';
 import ListItemText from '@mui/material/ListItemText';
-import {Card, CardMedia, CardContent, Button, CardActions } from '@mui/material';
+import { Card, CardMedia, CardContent, Button, CardActions , Grid } from '@mui/material';
+import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
+import Spinner from '../../components/UI/Spinner/Spinner';
+import { fetchProducts } from '../../store/actions/productsActions';
 
 const drawerWidth = 240;
 
-const Products = () => {
+const Products = ({match}) => {
+    const dispatch = useDispatch();
+    const products = useSelector(state => state.products.products);
+    const fetchLoading = useSelector(state => state.products.fetchLoading);
+
+    useEffect(() => {
+        dispatch(fetchProducts());
+    }, [dispatch]);
+
     return (
         <Box sx={{ display: 'flex' }}>
             <CssBaseline />
@@ -38,7 +49,7 @@ const Products = () => {
                 variant="permanent"
                 anchor="left"
             >
-                <List sx={{marginTop: '3.1rem'}}>
+                <List sx={{ marginTop: '3.1rem' }}>
                     <ListItem button >
                         <ListItemText primary='All items' />
                     </ListItem>
@@ -59,31 +70,43 @@ const Products = () => {
                     </ListItem>
                 </List>
             </Drawer>
-            <Box
-                component="main"
-                sx={{ flexGrow: 1, bgcolor: 'background.default', p: 3 }}
-            >
-                <Toolbar />
-                <Card sx={{ maxWidth: 300, margin: '1rem' }} >
-                    <CardMedia
-                        component="img"
-                        height="200"
-                        image='https://images.pexels.com/photos/441963/pexels-photo-441963.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260'
-                        alt="executor"
-                    />
-                    <CardContent>
-                        <Typography gutterBottom variant="h5" component="div">
-                            MacBook
-                        </Typography>
-                        <Typography gutterBottom variant="h5" component="div">
-                            80 000 som
-                        </Typography>
-                    </CardContent>
-                    <CardActions sx={{ justifyContent: 'center' }}>
-                        <Button size="small" variant="outlined" component={Link} to='/product/:id'>More info</Button>
-                    </CardActions>
-                </Card>
-            </Box>
+            {
+                fetchLoading ? (
+                    <Grid container justifyContent="center" alignItems="center">
+                        <Grid item>
+                            <Spinner />
+                        </Grid>
+                    </Grid>
+                ) :
+                    products.map(product => (
+                        <Box
+                            component="main"
+                            sx={{ flexGrow: 1, bgcolor: 'background.default', p: 3 }}
+                            key={product._id}
+                        >
+                            <Toolbar />
+                            <Card sx={{ maxWidth: 300, margin: '1rem' }} >
+                                <CardMedia
+                                    component="img"
+                                    height="200"
+                                    image={product.image}
+                                    alt="no img"
+                                />
+                                <CardContent>
+                                    <Typography gutterBottom variant="h5" component="div">
+                                        {product.title}
+                                    </Typography>
+                                    <Typography gutterBottom variant="h5" component="div">
+                                        {product.price}som
+                                    </Typography>
+                                </CardContent>
+                                <CardActions sx={{ justifyContent: 'center' }}>
+                                    <Button size="small" variant="outlined" component={Link} to={'/product/' + product._id}>More info</Button>
+                                </CardActions>
+                            </Card>
+                        </Box>
+                    ))
+            }
         </Box>
     )
 }
