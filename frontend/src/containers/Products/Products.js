@@ -7,22 +7,24 @@ import List from '@mui/material/List';
 import Typography from '@mui/material/Typography';
 import ListItem from '@mui/material/ListItem';
 import ListItemText from '@mui/material/ListItemText';
-import { Card, CardMedia, CardContent, Button, CardActions , Grid } from '@mui/material';
+import { Card, CardMedia, CardContent, Button, CardActions, Grid } from '@mui/material';
 import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
+import { NavLink } from 'react-router-dom';
 import Spinner from '../../components/UI/Spinner/Spinner';
 import { fetchProducts } from '../../store/actions/productsActions';
 
 const drawerWidth = 240;
 
-const Products = ({match}) => {
+const Products = ({ match }) => {
     const dispatch = useDispatch();
     const products = useSelector(state => state.products.products);
+    const categories = useSelector(state => state.categories.categories);
     const fetchLoading = useSelector(state => state.products.fetchLoading);
 
     useEffect(() => {
-        dispatch(fetchProducts());
-    }, [dispatch]);
+        dispatch(fetchProducts(match.params.id));
+    }, [dispatch, match.params.id]);
 
     return (
         <Box sx={{ display: 'flex' }}>
@@ -49,6 +51,18 @@ const Products = ({match}) => {
                 variant="permanent"
                 anchor="left"
             >
+                {categories ? categories.map(item =>
+                    <NavLink to={"/category/" + item._id}
+                        key={item._id}
+                    >
+                        <List>
+                            <ListItem button >
+                                <ListItemText primary={item.title} />
+                            </ListItem>
+                        </List>
+                    </NavLink>
+                ) : null}
+
                 <List sx={{ marginTop: '3.1rem' }}>
                     <ListItem button >
                         <ListItemText primary='All items' />
