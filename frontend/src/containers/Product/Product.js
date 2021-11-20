@@ -24,7 +24,7 @@ const Product = () => {
                 </CardContent>
                 <CardContent>
                     <Typography gutterBottom variant="h5" component="div" >
-                        John Doe + 77 77 77
+                        John Doe +77 77 77
                     </Typography>
                 </CardContent>
                 <CardActions sx={{ justifyContent: 'center' }}>

@@ -1,7 +1,9 @@
-import React from 'react';
+import React , {useEffect} from 'react';
 import Typography from '@mui/material/Typography';
 import ProductForm from '../../components/ProductForm/ProductForm';
-import { useDispatch } from "react-redux";
+import {useDispatch, useSelector} from "react-redux";
+import {createProduct} from "../../store/actions/productsActions";
+import {fetchCategories} from "../../store/actions/categoriesActions";
 
 const NewProduct = ({history}) => {
     const dispatch = useDispatch();

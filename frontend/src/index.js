@@ -7,17 +7,16 @@ import App from './App';
 import store from "./store/configureStore";
 import history from "./history";
 import theme from "./theme";
-import {MuiThemeProvider} from "@material-ui/core";
-
+import { ThemeProvider } from '@mui/material/styles';
 import 'react-toastify/dist/ReactToastify.css';
 
 const app = (
   <Provider store={store}>
     <Router history={history}>
-      <MuiThemeProvider theme={theme}>
+      <ThemeProvider theme={theme}>
         <ToastContainer/>
         <App/>
-      </MuiThemeProvider>
+      </ThemeProvider>
     </Router>
   </Provider>
 );

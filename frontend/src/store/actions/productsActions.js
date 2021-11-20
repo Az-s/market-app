@@ -1,7 +1,7 @@
 import axios from "axios";
 // import {NotificationManager} from "react-notifications";
 import {toast} from "react-toastify";
-import WarningIcon from '@material-ui/icons/Warning';
+import WarningIcon from '@mui/icons-material//Warning';
 import axiosApi from "../../axiosApi";
 
 export const FETCH_PRODUCTS_REQUEST = 'FETCH_PRODUCTS_REQUEST';
@@ -71,7 +71,6 @@ export const createProduct = productData => {
       dispatch(createProductRequest());
       await axios.post('http://localhost:8000/products', productData);
       dispatch(createProductSuccess());
-      // NotificationManager.success('Product created!');
       toast.success('Product created');
     } catch (e) {
       dispatch(createProductFailure());
