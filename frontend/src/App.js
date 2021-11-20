@@ -5,6 +5,7 @@ import './App.css';
 import Login from "./containers/Login/Login";
 import Register from "./containers/Register/Register";
 import Product from "./containers/Product/Product";
+import NewProduct from "./containers/NewProduct/NewProduct";
 
 const App = () => {
   return (
@@ -12,11 +13,10 @@ const App = () => {
       <Router>
         <NavBar />
         <Route exact path="/" component={Products} />
+        <Route path="/product/new" component={NewProduct} />
         <Route path="/product/:id" component={Product} />
         <Route path="/login" component={Login} />
         <Route path="/register" component={Register} />
-        {/* <Route path="/albums" component={AlbumList} />
-        <Route path="/album/:id" component={AlbumInfo} /> */}
       </Router>
     </div>
   );

@@ -5,17 +5,23 @@ import { useDispatch } from "react-redux";
 
 const NewProduct = ({history}) => {
     const dispatch = useDispatch();
+    const categories = useSelector(state => state.categories.categories);
 
-    // const onSubmit = async messageData => {
-    //     await dispatch(createMessage(messageData));
-    //     history.replace('/');
-    // };
+    useEffect(() => {
+        dispatch(fetchCategories());
+      }, [dispatch]);
+
+    const onSubmit = async productData => {
+        await dispatch(createProduct(productData));
+        history.replace('/');
+    };
 
     return (
         <>
-            <Typography variant="h4" sx={{ margin: '1rem 0' }}>New message</Typography>
+            <Typography variant="h4" sx={{ margin: '1rem 0' }}>New product</Typography>
             <ProductForm
                 onSubmit={onSubmit}
+                categories={categories}
             />
         </>
     )
