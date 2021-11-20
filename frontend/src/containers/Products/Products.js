@@ -45,17 +45,17 @@ const Products = () => {
                 </List>
                 <List>
                     <ListItem button >
-                        <ListItemText primary='Computers' />
+                        <ListItemText primary='Laptops' />
                     </ListItem>
                 </List>
                 <List>
                     <ListItem button >
-                        <ListItemText primary='Cars' />
+                        <ListItemText primary='Tablets' />
                     </ListItem>
                 </List>
                 <List>
                     <ListItem button >
-                        <ListItemText primary='Others' />
+                        <ListItemText primary='Smartphones' />
                     </ListItem>
                 </List>
             </Drawer>
