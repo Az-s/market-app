@@ -1,8 +1,8 @@
 import {applyMiddleware, combineReducers, compose, createStore} from "redux";
 import thunk from "redux-thunk";
-import productsReducer from "./reducers/productsReducer";
-import categoriesReducer from "./reducers/categoriesReducer";
-import usersReducer from "./reducers/usersReducer";
+import productsReducer from "./reducer/productsReducer";
+import categoriesReducer from "./reducer/categoriesReducer";
+import usersReducer from "./reducer/usersReducer";
 import {loadFromLocalStorage, saveToLocalStorage} from "./localStorage";
 import axiosApi from "../axiosApi";
 
